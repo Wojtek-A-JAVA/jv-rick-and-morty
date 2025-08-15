@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import mate.academy.rickandmorty.exception.EntityNotFoundException;
 import mate.academy.rickandmorty.model.Character;
 import mate.academy.rickandmorty.repository.CharacterRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +18,14 @@ public class CharacterServiceImpl implements CharacterService {
     @Override
     public Character find() {
         long databaseSize = characterRepository.count();
-        long randomId = (long) ((Math.random() * (databaseSize - 1)) + 1);
-        Character character = characterRepository.findById(randomId).orElseThrow(
-                () -> new EntityNotFoundException("Can't generate random wiki about character"));
+        int randomRecord = (int) (Math.random() * databaseSize);
+
+        Page<Character> characterPage =
+                characterRepository.findAll(PageRequest.of(randomRecord, 1));
+        if (!characterPage.hasContent()) {
+            throw new EntityNotFoundException("Can't generate random wiki about character");
+        }
+        Character character = characterPage.getContent().get(0);
         return character;
     }
 

@@ -30,7 +30,7 @@ public class CharacterController {
     }
 
     @Tag(name = "Search")
-    @GetMapping("/character")
+    @GetMapping("/search")
     @Operation(summary = "Search for a character", description = "Get a list of all characters "
             + "whose name contains the search letters")
     public List<Character> search(@RequestParam(required = false) String name,
