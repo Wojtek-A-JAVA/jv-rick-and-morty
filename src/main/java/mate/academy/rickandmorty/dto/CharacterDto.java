@@ -1,10 +1,12 @@
 package mate.academy.rickandmorty.dto;
 
-import java.util.ArrayList;
 import lombok.Data;
 
 @Data
 public class CharacterDto {
-    private CharacterInfoDto info;
-    private ArrayList<CharacterResultsDto> results;
+    private Long id;
+    private String externalId;
+    private String name;
+    private String status;
+    private String gender;
 }

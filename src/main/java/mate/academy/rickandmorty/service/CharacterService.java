@@ -1,11 +1,10 @@
 package mate.academy.rickandmorty.service;
 
 import java.util.List;
-import mate.academy.rickandmorty.model.Character;
-import org.springframework.data.domain.Pageable;
+import mate.academy.rickandmorty.dto.CharacterDto;
 
 public interface CharacterService {
-    Character find();
+    CharacterDto find();
 
-    List<Character> search(String name, Pageable pageable);
+    List<CharacterDto> search(String name);
 }

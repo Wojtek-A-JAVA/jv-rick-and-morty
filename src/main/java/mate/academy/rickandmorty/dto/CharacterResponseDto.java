@@ -14,8 +14,8 @@ import org.springframework.stereotype.Component;
 public class CharacterResponseDto {
     private final ObjectMapper objectMapper;
 
-    public CharacterDto getDtoResponse(String url) {
-        CharacterDto characterDto;
+    public CharacterDataDto getDtoResponse(String url) {
+        CharacterDataDto characterDataDto;
 
         HttpClient httpClient = HttpClient.newHttpClient();
         HttpRequest httpRequest = HttpRequest.newBuilder()
@@ -25,8 +25,8 @@ public class CharacterResponseDto {
         try {
             HttpResponse<String> response = httpClient.send(httpRequest,
                     HttpResponse.BodyHandlers.ofString());
-            characterDto = objectMapper.readValue(response.body(), CharacterDto.class);
-            return characterDto;
+            characterDataDto = objectMapper.readValue(response.body(), CharacterDataDto.class);
+            return characterDataDto;
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }

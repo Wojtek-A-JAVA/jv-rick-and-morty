@@ -33,7 +33,14 @@ public class DataLoader implements ApplicationRunner {
                 character.setExternalId(Integer.toString(dto.getId()));
                 character.setName(dto.getName());
                 character.setStatus(dto.getStatus());
+                character.setSpecies(dto.getSpecies());
+                character.setType(dto.getType());
                 character.setGender(dto.getGender());
+                character.setOrigin(dto.getOrigin());
+                character.setLocation(dto.getLocation());
+                character.setImage(dto.getImage());
+                character.setUrl(dto.getUrl());
+                character.setCreated(dto.getCreated());
                 characterRepository.save(character);
             }
         }
