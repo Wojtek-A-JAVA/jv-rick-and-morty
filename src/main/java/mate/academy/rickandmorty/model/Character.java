@@ -26,7 +26,4 @@ public class Character {
     private String image;
     private String url;
     private String created;
-
-    public Character() {
-    }
 }

@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface CharacterRepository extends JpaRepository<Character, Long> {
 
     List<Character> findByNameContainingIgnoreCase(String name);
+
+    boolean existsByExternalId(String externalId);
 }

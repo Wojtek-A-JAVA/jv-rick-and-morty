@@ -7,16 +7,18 @@ import mate.academy.rickandmorty.dto.CharacterDto;
 import mate.academy.rickandmorty.repository.CharacterRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
 public class CharacterServiceImpl implements CharacterService {
     private final CharacterRepository characterRepository;
+    private final ModelMapper modelMapper;
 
     @Override
-    public CharacterDto find() {
+    @Transactional(readOnly = true)
+    public CharacterDto getRandomCharacter() {
         Random random = new Random();
-        ModelMapper modelMapper = new ModelMapper();
         List<CharacterDto> characterDtoList = characterRepository.findAll()
                 .stream()
                 .map(ch -> modelMapper.map(ch, CharacterDto.class))
@@ -25,8 +27,11 @@ public class CharacterServiceImpl implements CharacterService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<CharacterDto> search(String name) {
-        ModelMapper modelMapper = new ModelMapper();
+        if (name == null || name.isEmpty()) {
+            throw new RuntimeException("Search name cannot be null or empty");
+        }
         return characterRepository.findByNameContainingIgnoreCase(name)
                 .stream()
                 .map(ch -> modelMapper.map(ch, CharacterDto.class))
